@@ -1,54 +1,54 @@
-<%-- 
-    Document   : step3
-    Created on : Jun 9, 2017, 4:17:33 PM
-    Author     : lakini
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Activated the newly created application</title>
+        <title>Activate the application</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
     <body>
-        <jsp:include page="_header.jsp"></jsp:include>
-            <br>
-            <h3>STEP 03</h3><br>
-            <div style="background: #E0E0E0;">
-                <h1>${output}</h1>
+        <div class="jumbotron text-center">
+            <h1>Service Provider Provisioning Tool</h1>
         </div>
-        <br><br>
-        <h2>${message}</h2>
-        <br>
 
-        <%
-            String statusVal = request.getAttribute("status").toString();
-            System.out.println("Status in JSP "+statusVal );
-            
-           
-            if (statusVal.equals("1")) {
-        %>
-         <form method="GET" action="activateApplication">
-            Application Name:<br>
-            <input type="text" name="appName" value= "${app.appName}" />
-            <br>
-            Next: Activate Application
-            <br><br>
-            If you wish to proceed,Please click "Proceed button"<br>
-            <input type="submit" value="Proceed"/>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
 
-        </form> 
-             <%
-        } else {
-        %>
-        <h2>You can not proceed from here!!!</h2><br>
-        <%
-            }
-        %>
-       
-        <br><br>
-        <jsp:include page="_footer.jsp"></jsp:include>
+                <div style="font-size:170%;" class="well well-lg">
+                    Output:<br>
+                    <p>${output}</p>
+                </div>
+                <br>
+                <div style="font-size:170%;" class="well well-lg">
+                    Message:<br>
+                    <p>${message}</p>
+                </div>
+
+                <%
+                    String statusVal = request.getAttribute("status").toString();
+                    System.out.println("Status in JSP " + statusVal);
+
+                    if (statusVal.equals("1")) {
+                %>
+                <p style="font-size:170%;">Step 03: <small>Activate the newly create application </small></p><br>
+                <form style="font-size:120%;" method="GET" action="activateApplication">
+                    If you wish to proceed,Please click "Proceed button"<br>
+                    <input style="width: 200px;" type="submit" value="Proceed"/>
+
+                    <jsp:include page="_footer.jsp"></jsp:include>
+                    </form> 
+                <%
+                } else {
+                %>
+                <h2>You can not proceed from here!!!</h2><br>
+                <%
+                    }
+                %>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
     </body>
-</body>
 </html>
+

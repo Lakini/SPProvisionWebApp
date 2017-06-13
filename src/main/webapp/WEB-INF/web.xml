@@ -2,8 +2,8 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <display-name>Archetype Created Web Application</display-name>
     <servlet>
-        <servlet-name>LoginToAmServlet</servlet-name>
-        <servlet-class>com.wso2telco.spprovisionapp.webapps.servlets.LoginToAmServlet</servlet-class>
+        <servlet-name>SignUpToAmServlet</servlet-name>
+        <servlet-class>com.wso2telco.spprovisionapp.webapps.servlets.SignUpToAmServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Proceed</servlet-name>
@@ -37,9 +37,13 @@
         <servlet-name>GenerateClientKeyAndSecret</servlet-name>
         <servlet-class>com.wso2telco.spprovisionapp.webapps.servlets.GenerateClientKeyAndSecret</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.wso2telco.spprovisionapp.webapps.servlets.LoginServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>LoginToAmServlet</servlet-name>
-        <url-pattern>/LoginToAmServlet</url-pattern>
+        <servlet-name>SignUpToAmServlet</servlet-name>
+        <url-pattern>/SignUpToAmServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Proceed</servlet-name>
@@ -72,6 +76,10 @@
     <servlet-mapping>
         <servlet-name>GenerateClientKeyAndSecret</servlet-name>
         <url-pattern>/GenerateClientKeyAndSecret</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

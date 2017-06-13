@@ -1,58 +1,66 @@
-<%-- 
-    Document   : step2
-    Created on : Jun 9, 2017, 4:17:22 PM
-    Author     : lakini
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Create User in API Manager</title>
+        <title>Login and create an application</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
     <body>
-        <jsp:include page="_header.jsp"></jsp:include>
-            <br>
-            <h3>STEP 02</h3><br>
-            <div style="background: #E0E0E0;">
-                <h1>${output}</h1>
+        <div class="jumbotron text-center">
+            <h1>Service Provider Provisioning Tool</h1>
         </div>
-        <br><br>
-        <h2>${message}</h2>
-        <br>
 
-        <%--
-            String statusVal = request.getAttribute("status").toString();
-            System.out.println("Status in JSP "+statusVal );
-            
-           
-            if (statusVal.equals("1")) {
-        --%>
-         <form method="GET" action="createApplication">
-            Application Name:<br>
-            <input type="text" name="appName" value= "${app.appName}" />
-            <br>
-            Application Short Description:<br>
-            <input type="text" name="appDesc" value= "${app.appDesc}" />
-            <br>
-            CallBack URL:<br>
-            <input type="text" name="appCallBackUrl" value= "${app.appCallBackUrl}" />
-            <br><br>
-            If you wish to proceed,Please click "Proceed button"<br>
-            <input type="submit" value="Proceed"/>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
 
-        </form> 
-             <%--
-        } else {
-        %>
-        <h2>You can not proceed from here!!!</h2><br>
-        <%
-            }
-        --%>
-       
-        <br><br>
-        <jsp:include page="_footer.jsp"></jsp:include>
+                <div style="font-size:170%;" class="well well-lg">
+                    Output:<br>
+                    <p>${output}</p>
+                </div>
+                <br>
+                <div style="font-size:170%;" class="well well-lg">
+                    Message:<br>
+                    <p>${message}</p>
+                </div>
+
+                <%
+                    String statusVal = request.getAttribute("status").toString();
+                    System.out.println("Status in JSP " + statusVal);
+
+                    if (statusVal.equals("1")) {
+                %>
+                <p style="font-size:170%;">Step 02: <small>Login to the API Manager and create a new application </small></p>
+                <form style="font-size:120%;" method="GET" action="createApplication">
+                    Application Name:<br>
+                    <input style="width: 200px;" type="text" name="appName" value= "${app.appName}" />
+                    <br>
+                    Application Short Description:<br>
+                    <input style="width: 200px;" type="text" name="appDesc" value= "${app.appDesc}" />
+                    <br>
+                    CallBack URL:<br>
+                    <input style="width: 200px;" type="text" name="appCallBackUrl" value= "${app.appCallBackUrl}" />
+                    <br>
+                    Application Tier:<br>
+                    <input style="width: 200px;" type="text" name="tier" value= "${app.tier}" />
+
+                    <br><br>
+                    If you wish to proceed,Please click "Proceed button"<br>
+                    <input style="width: 200px;" type="submit" value="Proceed"/>
+
+                    <jsp:include page="_footer.jsp"></jsp:include>
+                    </form> 
+                <%
+                } else {
+                %>
+                <h2>You can not proceed from here!!!</h2><br>
+                <%
+                    }
+                %>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
     </body>
-</body>
 </html>

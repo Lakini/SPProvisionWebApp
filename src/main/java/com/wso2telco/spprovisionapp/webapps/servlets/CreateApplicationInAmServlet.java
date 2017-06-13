@@ -87,7 +87,7 @@ public class CreateApplicationInAmServlet extends HttpServlet {
             
             dispatcher.forward(request, response);
         } catch (JSONException ex) {
-            Logger.getLogger(LoginToAmServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SignUpToAmServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
        
     }
