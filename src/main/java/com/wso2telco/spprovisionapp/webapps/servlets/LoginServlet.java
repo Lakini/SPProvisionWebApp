@@ -19,39 +19,49 @@ import com.wso2telco.spprovisionapp.webapps.api.ApiCallsInAM;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String responseApiLogin, step, messageToUser, status, responseApi,environment,appName;
+        String responseApiLogin, step, messageToUser, status, responseApi, environment, appName,userName;
+        userName = request.getParameter("userName");
         appName = request.getParameter("appName");
         environment = request.getParameter("environment");
-        HttpSession session = request.getSession();
         RequestDispatcher dispatcher;
 
-        ApiCallsInAM apisAM = new ApiCallsInAM();
-        responseApiLogin = apisAM.loginToAm(appName);
-        session.setAttribute("appName", appName);
-        step = (String) session.getAttribute("step");
-        session.setAttribute("environment", environment);
-        
-        try {
-            if (convertStringToJson(responseApiLogin).equalsIgnoreCase("false")) {
-                dispatcher = request.getServletContext()
-                        .getRequestDispatcher("/WEB-INF/views/step" + step + ".jsp");
-            } else {
-                messageToUser = "Couldn't login to the API Manager!!You can not proceed to Step " + step + ".";
+        this.getServletConfig().getServletContext().setAttribute("environment", environment);
+        this.getServletConfig().getServletContext().setAttribute("appName", appName);
+
+        step = (String) this.getServletConfig().getServletContext().getAttribute("stepNumber");
+
+        if (Integer.valueOf(step) < 6) {
+            ApiCallsInAM apisAM = new ApiCallsInAM(environment);
+            responseApiLogin = apisAM.loginToAm(userName);
+
+            try {
+                if (convertStringToJson(responseApiLogin).equalsIgnoreCase("false")) {
+                    dispatcher = request.getServletContext()
+                            .getRequestDispatcher("/WEB-INF/views/step" + step + ".jsp");
+                } else {
+                    messageToUser = "Couldn't login to the API Manager!!You can not proceed to Step " + step + ".";
+                    status = "0";
+                    responseApi = responseApiLogin;
+                    request.setAttribute("output", responseApi);
+                    request.setAttribute("message", messageToUser);
+                    request.setAttribute("status", status);
+                    dispatcher = request.getServletContext()
+                            .getRequestDispatcher("/WEB-INF/views/homeView.jsp");
+                }
+            } catch (JSONException ex) {
+                messageToUser = "Couldn't login to the API Manager!!" + ex.toString() + "\n You can not proceed to Step " + step + ".";
                 status = "0";
                 responseApi = responseApiLogin;
                 request.setAttribute("output", responseApi);
@@ -60,42 +70,12 @@ public class LoginServlet extends HttpServlet {
                 dispatcher = request.getServletContext()
                         .getRequestDispatcher("/WEB-INF/views/homeView.jsp");
             }
-        } catch (JSONException ex) {
-            messageToUser = "Couldn't login to the API Manager!!" + ex.toString() + "\n You can not proceed to Step " + step + ".";
-            status = "0";
-            responseApi = responseApiLogin;
-            request.setAttribute("output", responseApi);
-            request.setAttribute("message", messageToUser);
-            request.setAttribute("status", status);
+        } else {
             dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/views/homeView.jsp");
+                    .getRequestDispatcher("/WEB-INF/views/step" + step + ".jsp");
         }
 
         dispatcher.forward(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Login to the AM";
     }
 
     private String convertStringToJson(String value) throws JSONException {

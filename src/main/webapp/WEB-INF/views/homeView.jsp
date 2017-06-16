@@ -23,9 +23,9 @@
                 <form style="font-size:120%;" method="GET" action="go">
                     Environment:<br>
                     <select name= "environment" style="width: 200px;">
-                        <option value="prepod">Pre Production</option>
+                        <option value="preprod">Pre Production</option>
                         <option value="prod">Production</option>
-                    </select>
+                    </select><br><br>
                     Step Number:<br>
                     <input style="width: 200px;" type="text" name="stepNumber" value= "${step.stepNumber}" autocomplete='off'/>
                     <br><br>

@@ -8,7 +8,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
     <body>
-
         <div class="jumbotron text-center">
             <h1>Service Provider Provisioning Tool</h1>
         </div>
@@ -19,9 +18,12 @@
                 <form style="font-size:120%;" method="GET" action="login">
                     Environment:<br>
                     <select name= "environment" style="width: 300px;">
-                        <option value="prepod">Pre Production</option>
+                        <option value="preprod">Pre Production</option>
                         <option value="prod">Production</option>
-                    </select><br> 
+                    </select><br><br>
+                    User Name:<br>
+                    <input style="width: 200px;" type="text" name="userName" value= "${app.userName}" />
+                    <br><br>
                     Application Name:<br>
                     <input style="width: 200px;" type="text" name="appName" value= "${app.appName}" />
                     <br><br>

@@ -18,10 +18,10 @@
                 <p style="font-size:170%;">Step 11: <small>Update the client key and client secret </small></p>
                 <form style="font-size:120%;" method="GET" action="updateClientKeyandSecret">
                     New Client Key:<br>
-                    <input style="width: 200px;" type="text" name="newClientKey" value= "${app.newClientKey}" />
+                    <input style="width: 400px;" type="text" name="newClientKey" value= "${app.newClientKey}" />
                     <br>
                     New Client Secret:<br>
-                    <input style="width: 200px;" type="text" name="newClientSecret" value= "${app.newClientSecret}" />     
+                    <input style="width: 400px;" type="text" name="newClientSecret" value= "${app.newClientSecret}" />     
                     <br><br>
                     If you wish to proceed,Please click "Proceed button"<br>
                     <input style="width: 200px;" type="submit" value="Proceed"/>

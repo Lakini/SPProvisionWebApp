@@ -41,6 +41,22 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.wso2telco.spprovisionapp.webapps.servlets.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ScopeConfigurationServlet</servlet-name>
+        <servlet-class>com.wso2telco.spprovisionapp.webapps.servlets.ScopeConfigurationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateNewKeysServlet</servlet-name>
+        <servlet-class>com.wso2telco.spprovisionapp.webapps.servlets.UpdateNewKeysServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TestAppServlet</servlet-name>
+        <servlet-class>com.wso2telco.spprovisionapp.webapps.servlets.TestAppServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RedirectToHomePageServlet</servlet-name>
+        <servlet-class>com.wso2telco.spprovisionapp.webapps.servlets.RedirectToHomePageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignUpToAmServlet</servlet-name>
         <url-pattern>/SignUpToAmServlet</url-pattern>
@@ -79,7 +95,23 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/LoginServlet</url-pattern>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScopeConfigurationServlet</servlet-name>
+        <url-pattern>/ScopeConfigurationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateNewKeysServlet</servlet-name>
+        <url-pattern>/UpdateNewKeysServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestAppServlet</servlet-name>
+        <url-pattern>/TestAppServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RedirectToHomePageServlet</servlet-name>
+        <url-pattern>/RedirectToHomePageServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

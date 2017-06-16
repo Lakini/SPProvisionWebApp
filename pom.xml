@@ -98,9 +98,7 @@
             <artifactId>org.wso2.identity.integration.common.clients</artifactId>
             <version>5.2.0</version>
         </dependency>
-        
-        
-        
+  
     </dependencies>
     
     <build>

@@ -18,6 +18,9 @@
             <div class="col-sm-10">
                 <p style="font-size:170%;">Step 01: <small>Create a new API Manager user for the new application </small></p>
                 <form style="font-size:120%;" method="GET" action="loginAndSignUp">
+                    User Name:<br>
+                    <input style="width: 200px;" type="text" name="userName" value= "${app.userName}" />
+                    <br>
                     Application Name:<br>
                     <input style="width: 200px;" type="text" name="appName" value= "${app.appName}" />
                     <br>

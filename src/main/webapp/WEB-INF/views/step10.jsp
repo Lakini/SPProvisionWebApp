@@ -16,12 +16,12 @@
             <div class="col-sm-1"></div>
             <div class="col-sm-10">
 
-                <div style="font-size:170%;" class="well well-lg">
+                <div style="font-size:120%;" class="well well-lg">
                     Output:<br>
                     <p>${output}</p>
                 </div>
                 <br>
-                <div style="font-size:170%;" class="well well-lg">
+                <div style="font-size:120%;" class="well well-lg">
                     Message:<br>
                     <p>${message}</p>
                 </div>
@@ -30,20 +30,18 @@
                     String statusVal = request.getAttribute("status").toString();
 
                     if (statusVal.equalsIgnoreCase("Success")) {
-                %>
+                %>              
                 <p style="font-size:170%;">Step 10: <small>Test the application by getting Authorize code,Token and UserInfo</small></p><br>
-                <form style="font-size:120%;" method="GET" action="testApp">
-                    <div style="width: 200px;" class="form-group">
-                        <label for="comment">Comment:</label>
-                        <textarea style="background-color:#C6D2E7" class="form-control" rows="5" id="comment"></textarea>
-                        <label for="comment">Comment:</label>
-                        <textarea style="background-color:#C6D2E7" class="form-control" rows="5" id="comment"></textarea>
-                        <label for="comment">Comment:</label>
-                        <textarea style="background-color:#C6D2E7" class="form-control" rows="5" id="comment"></textarea>
-                    </div> 
-
+                <form style="font-size:120%;" method="GET" action="testApplication">
+                        Following are sample Requests to test the application:<br><br>
+                        <label for="comment">OAuth Request:</label>
+                        <textarea style="background-color:#C6D2E7" class="form-control" rows="3" id="comment">${oAuthRequest}</textarea>
+                        <label for="comment">Token Request:</label>
+                        <textarea style="background-color:#C6D2E7" class="form-control" rows="3" id="comment">${tokenRequest}</textarea>
+                        <label for="comment">UserInfo:</label>
+                        <textarea style="background-color:#C6D2E7" class="form-control" rows="1" id="comment">${userInfo}</textarea>
                     <br>
-                    If you wish to proceed,Please test the above commands and if they success, click "Proceed button"<br>
+                    If you wish to proceed,Please test the above commands and if they success, click "Proceed button"<br><br>
                     <input style="width: 200px;" type="submit" value="Proceed"/>
 
                     <jsp:include page="_footer.jsp"></jsp:include>
@@ -55,7 +53,7 @@
                 <%
                     }
                 %>
-            </div>
+            </div>           
             <div class="col-sm-1"></div>
         </div>
     </body>

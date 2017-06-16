@@ -15,13 +15,7 @@
  ***************************************************************************** */
 package com.wso2telco.spprovisionapp.webapps.servlets;
 
-import com.wso2telco.spprovisionapp.webapps.conn.ApimgtConnectionUtil;
-import com.wso2telco.spprovisionapp.webapps.utils.DataBaseFunction;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,34 +23,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/activateApplication"})
-public class ActivateApplication extends HttpServlet {
+@WebServlet(urlPatterns = {"/testApplication"})
+public class TestAppServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String status, message;
-        RequestDispatcher dispatcher;;
-        String appName = (String) this.getServletConfig().getServletContext().getAttribute("appName");
-
-        try {
-            Connection conn = ApimgtConnectionUtil.getConnection();
-            status = DataBaseFunction.activateApplication(conn, appName);
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ActivateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            status = "Exception:" + ex.getMessage();
-        } catch (SQLException ex) {
-            Logger.getLogger(ActivateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            status = "Exception:" + ex.getMessage();
-        }
-
-        request.setAttribute("status", status);
-
+        RequestDispatcher dispatcher;
         dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/views/step4.jsp");
-
+                .getRequestDispatcher("/WEB-INF/views/step11.jsp");
         dispatcher.forward(request, response);
+
     }
 }

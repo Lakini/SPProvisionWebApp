@@ -16,9 +16,15 @@
             <div class="col-sm-1"></div>
             <div class="col-sm-10">
                 <p style="font-size:170%;">Step 09: <small>Scope Configurations for the application </small></p><br>
-                <form style="font-size:120%;" method="GET" action="generateKeys">
+                <form style="font-size:120%;" method="GET" action="scopeConfigurations">
+                    Consumer Key:<br>
+                    <input style="width: 400px;" type="text" name="consumerKey" value= "${app.consumerKey}" />
+                    <br><br>
+                    Client Secret Key:<br>
+                    <input style="width: 400px;" type="text" name="secretKey" value= "${app.secretKey}" />
                     <br>
-                    If you wish to proceed,Please click "Proceed button"<br>
+                    <br>
+                    If you wish to proceed,Please click "Proceed button"<br><br>
                     <input style="width: 200px;" type="submit" value="Proceed"/>
 
                     <jsp:include page="_footer.jsp"></jsp:include>

@@ -9,30 +9,20 @@
     </head>
     <body>
         <div class="jumbotron text-center">
-            <h1>Service Provider Provisioning Tool</h1>
+           <h1>Service Provider Provisioning Tool</h1>
         </div>
 
         <div class="row">
             <div class="col-sm-1"></div>
             <div class="col-sm-10">
 
-                <div style="font-size:170%;" class="well well-lg">
-                    Output:<br>
-                    <p>${output}</p>
-                </div>
-                <br>
-                <div style="font-size:170%;" class="well well-lg">
-                    Message:<br>
-                    <p>${message}</p>
-                </div>
-
-                <%
+              <%
                     String statusVal = request.getAttribute("status").toString();
 
                     if (statusVal.equalsIgnoreCase("Success")) {
                 %>
                 <p style="font-size:170%;">Step 08: <small>Generate client key and client secret</small></p><br>
-                <form style="font-size:120%;" method="GET" action="generateKeys">
+                <form style="font-size:120%;" method="GET" action="generateClientkeyAndSecret">
                     <br>
                     If you wish to proceed,Please click the Generate button and then click "Proceed button"<br>
                     <input style="width: 200px;" type="submit" value="Proceed"/>
@@ -51,5 +41,4 @@
         </div>
     </body>
 </html>
-
 

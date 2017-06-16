@@ -33,10 +33,7 @@
                     if (statusVal.equals("1")) {
                 %>
                 <p style="font-size:170%;">Step 02: <small>Login to the API Manager and create a new application </small></p>
-                <form style="font-size:120%;" method="GET" action="createApplication">
-                    Application Name:<br>
-                    <input style="width: 200px;" type="text" name="appName" value= "${app.appName}" />
-                    <br>
+                <form style="font-size:120%;" method="GET" action="createApplication">                    
                     Application Short Description:<br>
                     <input style="width: 200px;" type="text" name="appDesc" value= "${app.appDesc}" />
                     <br>

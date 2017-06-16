@@ -15,17 +15,6 @@
         <div class="row">
             <div class="col-sm-1"></div>
             <div class="col-sm-10">
-
-                <div style="font-size:170%;" class="well well-lg">
-                    Output:<br>
-                    <p>${output}</p>
-                </div>
-                <br>
-                <div style="font-size:170%;" class="well well-lg">
-                    Message:<br>
-                    <p>${message}</p>
-                </div>
-
                 <%
                     String statusVal = request.getAttribute("status").toString();
 

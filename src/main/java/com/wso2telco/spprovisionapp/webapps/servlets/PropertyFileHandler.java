@@ -23,18 +23,17 @@ import java.util.Properties;
 
 public class PropertyFileHandler {
 
-    private static Properties property = null;
-    private static InputStream input = null;
-    private static String value = null;
+    private Properties property = null;
+    private InputStream input = null;
+    private String value = null;
 
-    public static String readFromPropertyFile(String key) throws FileNotFoundException, IOException {
+    public Properties popertiesFromPropertyFile() throws FileNotFoundException, IOException {
 
-        property = new Properties();
+        Properties propertyDetails;
+        propertyDetails = new Properties();
         try {
-            input = new FileInputStream("/resources/SpProvisionProperties.properties");
-            property.load(input);
-            value = property.getProperty(key);
-
+            input = new FileInputStream("/home/lakini/NetBeansProjects/lakini/SpProvisionApp/src/main/resources/SpProvisionProperties.properties");         
+            propertyDetails.load(input);
         } catch (FileNotFoundException ex) {
             throw new FileNotFoundException();
         } catch (IOException ex) {
@@ -48,6 +47,6 @@ public class PropertyFileHandler {
                 }
             }
         }
-        return value;
+        return propertyDetails;
     }
 }
