@@ -20,10 +20,10 @@ import java.sql.SQLException;
 
 public class StatdbConnectionUtil {
 
-    public static Connection getConnection()
+    public static Connection getConnection(String environment)
             throws ClassNotFoundException, SQLException {
 
-        return DataBaseAccessUtil.getConnectionToStatDb();
+        return DataBaseAccessUtil.getConnectionToStatDb(environment);
     }
 
     public static void closeQuietly(Connection conn) {

@@ -38,9 +38,10 @@ public class UpdateApplication extends HttpServlet {
 
         String status;
         RequestDispatcher dispatcher;
+        String environment = (String) this.getServletConfig().getServletContext().getAttribute("environment");
 
         try {
-            Connection conn = AxiatadbConnectionUtil.getConnection();
+            Connection conn = AxiatadbConnectionUtil.getConnection(environment);
             status = DataBaseFunction.updateApplication(conn);
 
         } catch (ClassNotFoundException ex) {

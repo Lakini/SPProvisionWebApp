@@ -39,9 +39,10 @@ public class ActivateApplication extends HttpServlet {
         String status, message;
         RequestDispatcher dispatcher;;
         String appName = (String) this.getServletConfig().getServletContext().getAttribute("appName");
+        String environment = (String) this.getServletConfig().getServletContext().getAttribute("environment");
 
         try {
-            Connection conn = ApimgtConnectionUtil.getConnection();
+            Connection conn = ApimgtConnectionUtil.getConnection(environment);
             status = DataBaseFunction.activateApplication(conn, appName);
 
         } catch (ClassNotFoundException ex) {

@@ -20,10 +20,10 @@ import java.sql.SQLException;
 
 public class RegdbConnectionUtil {
 
-    public static Connection getConnection()
+    public static Connection getConnection(String environment)
             throws ClassNotFoundException, SQLException {
 
-        return DataBaseAccessUtil.getConnectionToRegDb();
+        return DataBaseAccessUtil.getConnectionToRegDb(environment);
     }
 
     public static void closeQuietly(Connection conn) {

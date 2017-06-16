@@ -56,7 +56,7 @@ public class ScopeConfigurationServlet extends HttpServlet {
 
         try {
             popertiesFromPropertyFile = propertyFileHandler.popertiesFromPropertyFile();
-            Connection conn = ConnectdbConnectionUtil.getConnection();
+            Connection conn = ConnectdbConnectionUtil.getConnection(environment);
             status = DataBaseFunction.scopeCofiguration(conn, consumerKeyValue);
             status = "Success";
             System.out.println("status:" + status);

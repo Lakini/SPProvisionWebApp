@@ -20,10 +20,10 @@ import java.sql.SQLException;
 
 public class AxiatadbConnectionUtil {
 
-    public static Connection getConnection()
+    public static Connection getConnection(String environment)
             throws ClassNotFoundException, SQLException {
 
-        return DataBaseAccessUtil.getConnectionToAxiataDb();
+        return DataBaseAccessUtil.getConnectionToAxiataDb(environment);
 
     }
 

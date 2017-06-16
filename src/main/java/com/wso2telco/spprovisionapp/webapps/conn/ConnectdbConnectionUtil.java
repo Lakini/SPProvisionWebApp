@@ -20,10 +20,10 @@ import java.sql.SQLException;
 
 public class ConnectdbConnectionUtil {
 
-    public static Connection getConnection()
+    public static Connection getConnection(String environment)
             throws ClassNotFoundException, SQLException {
 
-        return DataBaseAccessUtil.getConnectionToConnectDb();
+        return DataBaseAccessUtil.getConnectionToConnectDb(environment);
 
     }
 

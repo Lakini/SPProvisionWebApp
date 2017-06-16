@@ -142,25 +142,25 @@ public class DataBaseFunction {
         return message;
     }
 
-    public static String updateClientAndSecretKeys(String consumerKeyOld, String consumerKeyNew, String secretKeyOld, String secretKeyNew) throws SQLException {
+    public static String updateClientAndSecretKeys(String environment, String consumerKeyOld, String consumerKeyNew, String secretKeyOld, String secretKeyNew) throws SQLException {
 
         String message;
         String resultsetValue;
 
-        resultsetValue = check_for_consumer_key_availability(consumerKeyOld);
+        resultsetValue = check_for_consumer_key_availability(environment, consumerKeyOld);
 
         if (resultsetValue.equals(consumerKeyOld)) {
-            if (update_SP_INBOUND_AUTH_table(consumerKeyOld, consumerKeyNew, secretKeyOld, secretKeyNew) > 0) {
-                if (update_AM_APPLICATION_KEY_MAPPING_table(consumerKeyOld, consumerKeyNew) > 0) {
-                    if (update_AM_APP_KEY_DOMAIN_MAPPING_table(consumerKeyOld) > 0) {
-                        if (update_IDN_OAUTH2_ACCESS_TOKEN_table(consumerKeyOld) > 0) {
-                            if (update_IDN_OAUTH2_AUTHORIZATION_CODE_table(consumerKeyOld) > 0) {
-                                if (update_IDN_OAUTH_CONSUMER_APPS_table(consumerKeyOld, consumerKeyNew, secretKeyNew) > 0) {
-                                    if (update_tempkey_in_AM_APP_KEY_DOMAIN_MAPPING_table(consumerKeyNew) > 0) {
-                                        if (update_tempkey_in_IDN_OAUTH2_ACCESS_TOKEN_table(consumerKeyNew) > 0) {
-                                            if (update_tempkey_in_IDN_OAUTH2_AUTHORIZATION_CODE_table(consumerKeyNew) > 0) {
-                                                if (update_sp_token_table(consumerKeyOld, consumerKeyNew) > 0) {
-                                                    if (update_sp_configuration_table(consumerKeyOld, consumerKeyNew) > 0) {
+            if (update_SP_INBOUND_AUTH_table(environment, consumerKeyOld, consumerKeyNew, secretKeyOld, secretKeyNew) > 0) {
+                if (update_AM_APPLICATION_KEY_MAPPING_table(environment, consumerKeyOld, consumerKeyNew) > 0) {
+                    if (update_AM_APP_KEY_DOMAIN_MAPPING_table(environment, consumerKeyOld) > 0) {
+                        if (update_IDN_OAUTH2_ACCESS_TOKEN_table(environment, consumerKeyOld) > 0) {
+                            if (update_IDN_OAUTH2_AUTHORIZATION_CODE_table(environment, consumerKeyOld) > 0) {
+                                if (update_IDN_OAUTH_CONSUMER_APPS_table(environment, consumerKeyOld, consumerKeyNew, secretKeyNew) > 0) {
+                                    if (update_tempkey_in_AM_APP_KEY_DOMAIN_MAPPING_table(environment, consumerKeyNew) > 0) {
+                                        if (update_tempkey_in_IDN_OAUTH2_ACCESS_TOKEN_table(environment, consumerKeyNew) > 0) {
+                                            if (update_tempkey_in_IDN_OAUTH2_AUTHORIZATION_CODE_table(environment, consumerKeyNew) > 0) {
+                                                if (update_sp_token_table(environment, consumerKeyOld, consumerKeyNew) > 0) {
+                                                    if (update_sp_configuration_table(environment, consumerKeyOld, consumerKeyNew) > 0) {
                                                         message = "Success";
                                                     } else {
                                                         message = "Failure in updating Sp Configuration Table";
@@ -203,14 +203,14 @@ public class DataBaseFunction {
         return message;
     }
 
-    private static String check_for_consumer_key_availability(String consumerKey) throws SQLException {
+    private static String check_for_consumer_key_availability(String environment, String consumerKey) throws SQLException {
 
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         String outputValue = null;
         try {
-            conn = ApimgtConnectionUtil.getConnection();
+            conn = ApimgtConnectionUtil.getConnection(environment);
             String sqlQuery = "select * from IDN_OAUTH_CONSUMER_APPS where IDN_OAUTH_CONSUMER_APPS.CONSUMER_KEY=?;";
 
             statement = conn.prepareStatement(sqlQuery);
@@ -243,7 +243,7 @@ public class DataBaseFunction {
         return outputValue;
     }
 
-    private static int update_SP_INBOUND_AUTH_table(String consumerKeyOld, String consumerKeyNew, String secretKeyOld, String secretKeyNew) throws SQLException {
+    private static int update_SP_INBOUND_AUTH_table(String environment, String consumerKeyOld, String consumerKeyNew, String secretKeyOld, String secretKeyNew) throws SQLException {
 
         Connection conn = null;
         PreparedStatement statement = null;
@@ -251,7 +251,7 @@ public class DataBaseFunction {
         String sqlQuery, tempValue = null;
         int status = 0;
         try {
-            conn = ApimgtConnectionUtil.getConnection();
+            conn = ApimgtConnectionUtil.getConnection(environment);
             conn.setAutoCommit(false);
             sqlQuery = "select * from SP_INBOUND_AUTH where SP_INBOUND_AUTH.INBOUND_AUTH_KEY=? and SP_INBOUND_AUTH.PROP_VALUE=?";
             statement = conn.prepareStatement(sqlQuery);
@@ -298,7 +298,7 @@ public class DataBaseFunction {
         return status;
     }
 
-    private static int update_AM_APPLICATION_KEY_MAPPING_table(String consumerKeyOld, String consumerKeyNew) throws SQLException {
+    private static int update_AM_APPLICATION_KEY_MAPPING_table(String environment, String consumerKeyOld, String consumerKeyNew) throws SQLException {
 
         Connection conn = null;
         PreparedStatement statement = null;
@@ -306,7 +306,7 @@ public class DataBaseFunction {
         String sqlQuery;
         int status = 0;
         try {
-            conn = ApimgtConnectionUtil.getConnection();
+            conn = ApimgtConnectionUtil.getConnection(environment);
             conn.setAutoCommit(false);
             sqlQuery = "select * from AM_APPLICATION_KEY_MAPPING where AM_APPLICATION_KEY_MAPPING.CONSUMER_KEY=?";
             statement = conn.prepareStatement(sqlQuery);
@@ -345,7 +345,7 @@ public class DataBaseFunction {
         return status;
     }
 
-    private static int update_AM_APP_KEY_DOMAIN_MAPPING_table(String consumerKeyOld) throws SQLException {
+    private static int update_AM_APP_KEY_DOMAIN_MAPPING_table(String environment, String consumerKeyOld) throws SQLException {
 
         Connection conn = null;
         PreparedStatement statement = null;
@@ -353,7 +353,7 @@ public class DataBaseFunction {
         String sqlQuery;
         int status = 0;
         try {
-            conn = ApimgtConnectionUtil.getConnection();
+            conn = ApimgtConnectionUtil.getConnection(environment);
             conn.setAutoCommit(false);
             sqlQuery = "select * from AM_APP_KEY_DOMAIN_MAPPING where AM_APP_KEY_DOMAIN_MAPPING.CONSUMER_KEY=?";
             statement = conn.prepareStatement(sqlQuery);
@@ -391,7 +391,7 @@ public class DataBaseFunction {
         return status;
     }
 
-    private static int update_IDN_OAUTH2_ACCESS_TOKEN_table(String consumerKeyOld) throws SQLException {
+    private static int update_IDN_OAUTH2_ACCESS_TOKEN_table(String environment, String consumerKeyOld) throws SQLException {
 
         Connection conn = null;
         PreparedStatement statement = null;
@@ -399,7 +399,7 @@ public class DataBaseFunction {
         String sqlQuery;
         int status = 0;
         try {
-            conn = ApimgtConnectionUtil.getConnection();
+            conn = ApimgtConnectionUtil.getConnection(environment);
             conn.setAutoCommit(false);
             sqlQuery = "select * from IDN_OAUTH2_ACCESS_TOKEN where IDN_OAUTH2_ACCESS_TOKEN.CONSUMER_KEY=?";
             statement = conn.prepareStatement(sqlQuery);
@@ -438,7 +438,7 @@ public class DataBaseFunction {
         return status;
     }
 
-    private static int update_IDN_OAUTH2_AUTHORIZATION_CODE_table(String consumerKeyOld) throws SQLException {
+    private static int update_IDN_OAUTH2_AUTHORIZATION_CODE_table(String environment, String consumerKeyOld) throws SQLException {
 
         Connection conn = null;
         PreparedStatement statement = null;
@@ -446,7 +446,7 @@ public class DataBaseFunction {
         String sqlQuery;
         int status = 0;
         try {
-            conn = ApimgtConnectionUtil.getConnection();
+            conn = ApimgtConnectionUtil.getConnection(environment);
             conn.setAutoCommit(false);
             sqlQuery = "select * from IDN_OAUTH2_AUTHORIZATION_CODE where IDN_OAUTH2_AUTHORIZATION_CODE.CONSUMER_KEY=?";
             statement = conn.prepareStatement(sqlQuery);
@@ -484,7 +484,7 @@ public class DataBaseFunction {
         return status;
     }
 
-    private static int update_IDN_OAUTH_CONSUMER_APPS_table(String consumerKeyOld, String consumerKeyNew, String consumerSecretNew) throws SQLException {
+    private static int update_IDN_OAUTH_CONSUMER_APPS_table(String environment, String consumerKeyOld, String consumerKeyNew, String consumerSecretNew) throws SQLException {
 
         Connection conn = null;
         PreparedStatement statement = null;
@@ -492,7 +492,7 @@ public class DataBaseFunction {
         String sqlQuery;
         int status = 0;
         try {
-            conn = ApimgtConnectionUtil.getConnection();
+            conn = ApimgtConnectionUtil.getConnection(environment);
             conn.setAutoCommit(false);
             sqlQuery = "select * from IDN_OAUTH_CONSUMER_APPS where IDN_OAUTH_CONSUMER_APPS.CONSUMER_KEY=?";
             statement = conn.prepareStatement(sqlQuery);
@@ -532,7 +532,7 @@ public class DataBaseFunction {
         return status;
     }
 
-    private static int update_tempkey_in_AM_APP_KEY_DOMAIN_MAPPING_table(String consumerKeyNew) throws SQLException {
+    private static int update_tempkey_in_AM_APP_KEY_DOMAIN_MAPPING_table(String environment, String consumerKeyNew) throws SQLException {
 
         Connection conn = null;
         PreparedStatement statement = null;
@@ -540,7 +540,7 @@ public class DataBaseFunction {
         String sqlQuery;
         int status = 0;
         try {
-            conn = ApimgtConnectionUtil.getConnection();
+            conn = ApimgtConnectionUtil.getConnection(environment);
             conn.setAutoCommit(false);
             sqlQuery = "select * from AM_APP_KEY_DOMAIN_MAPPING where AM_APP_KEY_DOMAIN_MAPPING.CONSUMER_KEY='tempConsumerKey'";
             statement = conn.prepareStatement(sqlQuery);
@@ -577,7 +577,7 @@ public class DataBaseFunction {
         return status;
     }
 
-    private static int update_tempkey_in_IDN_OAUTH2_ACCESS_TOKEN_table(String consumerKeyNew) throws SQLException {
+    private static int update_tempkey_in_IDN_OAUTH2_ACCESS_TOKEN_table(String environment, String consumerKeyNew) throws SQLException {
 
         Connection conn = null;
         PreparedStatement statement = null;
@@ -585,7 +585,7 @@ public class DataBaseFunction {
         String sqlQuery;
         int status = 0;
         try {
-            conn = ApimgtConnectionUtil.getConnection();
+            conn = ApimgtConnectionUtil.getConnection(environment);
             conn.setAutoCommit(false);
             sqlQuery = "select * from IDN_OAUTH2_ACCESS_TOKEN where IDN_OAUTH2_ACCESS_TOKEN.CONSUMER_KEY='tempConsumerKey'";
             statement = conn.prepareStatement(sqlQuery);
@@ -622,7 +622,7 @@ public class DataBaseFunction {
         return status;
     }
 
-    private static int update_tempkey_in_IDN_OAUTH2_AUTHORIZATION_CODE_table(String consumerKeyNew) throws SQLException {
+    private static int update_tempkey_in_IDN_OAUTH2_AUTHORIZATION_CODE_table(String environment, String consumerKeyNew) throws SQLException {
 
         Connection conn = null;
         PreparedStatement statement = null;
@@ -630,7 +630,7 @@ public class DataBaseFunction {
         String sqlQuery;
         int status = 0;
         try {
-            conn = ApimgtConnectionUtil.getConnection();
+            conn = ApimgtConnectionUtil.getConnection(environment);
             conn.setAutoCommit(false);
             sqlQuery = "select * from IDN_OAUTH2_AUTHORIZATION_CODE where IDN_OAUTH2_AUTHORIZATION_CODE.CONSUMER_KEY='tempConsumerKey'";
 
@@ -668,7 +668,7 @@ public class DataBaseFunction {
         return status;
     }
 
-    private static int update_sp_token_table(String consumerKeyOld, String consumerKeyNew) throws SQLException {
+    private static int update_sp_token_table(String environment, String consumerKeyOld, String consumerKeyNew) throws SQLException {
 
         Connection conn = null;
         PreparedStatement statement = null;
@@ -676,7 +676,7 @@ public class DataBaseFunction {
         String sqlQuery;
         int status = 0;
         try {
-            conn = AxiatadbConnectionUtil.getConnection();
+            conn = AxiatadbConnectionUtil.getConnection(environment);
             conn.setAutoCommit(false);
             sqlQuery = "select * from sp_token where sp_token.consumer_key=?";
             statement = conn.prepareStatement(sqlQuery);
@@ -716,7 +716,7 @@ public class DataBaseFunction {
         return status;
     }
 
-    private static int update_sp_configuration_table(String consumerKeyOld, String consumerKeyNew) throws SQLException {
+    private static int update_sp_configuration_table(String environment, String consumerKeyOld, String consumerKeyNew) throws SQLException {
 
         Connection conn = null;
         PreparedStatement statement = null;
@@ -724,7 +724,7 @@ public class DataBaseFunction {
         String sqlQuery;
         int status = 0;
         try {
-            conn = ConnectdbConnectionUtil.getConnection();
+            conn = ConnectdbConnectionUtil.getConnection(environment);
             conn.setAutoCommit(false);
             sqlQuery = "SELECT * from sp_configuration where client_id = ?";
             statement = conn.prepareStatement(sqlQuery);

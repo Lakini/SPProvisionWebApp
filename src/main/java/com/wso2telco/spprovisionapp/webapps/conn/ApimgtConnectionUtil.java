@@ -20,10 +20,10 @@ import java.sql.SQLException;
 
 public class ApimgtConnectionUtil {
 
-    public static Connection getConnection()
+    public static Connection getConnection(String environment)
             throws ClassNotFoundException, SQLException {
 
-        return DataBaseAccessUtil.getConnectionToApimgtDb();
+        return DataBaseAccessUtil.getConnectionToApimgtDb(environment);
 
     }
 

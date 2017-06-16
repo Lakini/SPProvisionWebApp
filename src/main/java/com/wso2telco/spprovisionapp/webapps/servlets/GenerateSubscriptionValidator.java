@@ -36,10 +36,12 @@ public class GenerateSubscriptionValidator extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String status;
+        String environment = (String) this.getServletConfig().getServletContext().getAttribute("environment");
+        
         RequestDispatcher dispatcher;
 
         try {
-            Connection conn = AxiatadbConnectionUtil.getConnection();
+            Connection conn = AxiatadbConnectionUtil.getConnection(environment);
             status = DataBaseFunction.populateSubscriptionValidator(conn);
 
         } catch (ClassNotFoundException ex) {

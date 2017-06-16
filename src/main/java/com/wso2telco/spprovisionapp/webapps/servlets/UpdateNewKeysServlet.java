@@ -53,7 +53,7 @@ public class UpdateNewKeysServlet extends HttpServlet {
             popertiesFromPropertyFile = propertyFileHandler.popertiesFromPropertyFile();
             String oldConsumerKey = (String) this.getServletConfig().getServletContext().getAttribute("oldConsumerKey");
             String oldSecretKey = (String) this.getServletConfig().getServletContext().getAttribute("oldSecretKey");
-            status = DataBaseFunction.updateClientAndSecretKeys(oldConsumerKey, clientKey, oldSecretKey, secretKey);
+            status = DataBaseFunction.updateClientAndSecretKeys(environment,oldConsumerKey, clientKey, oldSecretKey, secretKey);
 
             if (environment.equals("preprod")) {
                 hostUrl = popertiesFromPropertyFile.getProperty("host_preprod_IS");

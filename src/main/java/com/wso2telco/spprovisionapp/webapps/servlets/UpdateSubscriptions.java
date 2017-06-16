@@ -38,9 +38,10 @@ public class UpdateSubscriptions extends HttpServlet {
 
         String status;
         RequestDispatcher dispatcher;
+        String environment = (String) this.getServletConfig().getServletContext().getAttribute("environment");
 
         try {
-            Connection conn = ApimgtConnectionUtil.getConnection();
+            Connection conn = ApimgtConnectionUtil.getConnection(environment);
             status = DataBaseFunction.updateSubscriptions(conn);
 
         } catch (ClassNotFoundException ex) {

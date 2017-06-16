@@ -24,8 +24,10 @@ import java.util.Properties;
 
 public class DataBaseAccessUtil {
 
-    private static String hostName;
-    private static String port;
+    private static String hostNamePreProd;
+    private static String portPreProd;
+    private static String hostNameProd;
+    private static String portProd;
     private static String apimgtDb;
     private static String apimgtDbuserName;
     private static String apimgtDbpassword;
@@ -48,8 +50,10 @@ public class DataBaseAccessUtil {
     public DataBaseAccessUtil() throws IOException {
         PropertyFileHandler propertyFIleHandler = new PropertyFileHandler();
         Properties properties = propertyFIleHandler.popertiesFromPropertyFile();
-        hostName = properties.getProperty("host_db");
-        port = properties.getProperty("port_db");
+        hostNamePreProd = properties.getProperty("host_db_preprod");
+        portPreProd = properties.getProperty("port_db_preprod");
+        hostNameProd = properties.getProperty("host_db_prod");
+        portProd = properties.getProperty("port_db_prod");
         apimgtDb = properties.getProperty("am_db_name");
         apimgtDbuserName = properties.getProperty("am_db_user");
         apimgtDbpassword = properties.getProperty("am_db_password");
@@ -70,41 +74,51 @@ public class DataBaseAccessUtil {
         userDbpassword = properties.getProperty("user_db_password");
     }
 
-    public static Connection getConnectionToApimgtDb()
+    public static Connection getConnectionToApimgtDb(String environment)
             throws ClassNotFoundException, SQLException {
-        return getMySQLConnection(apimgtDb, apimgtDbuserName, apimgtDbpassword);
+        return getMySQLConnection(environment, apimgtDb, apimgtDbuserName, apimgtDbpassword);
     }
 
-    public static Connection getConnectionToAxiataDb()
+    public static Connection getConnectionToAxiataDb(String environment)
             throws ClassNotFoundException, SQLException {
-        return getMySQLConnection(axiataDb, axiataDbuserName, axiataDbpassword);
+        return getMySQLConnection(environment, axiataDb, axiataDbuserName, axiataDbpassword);
     }
 
-    public static Connection getConnectionToConnectDb()
+    public static Connection getConnectionToConnectDb(String environment)
             throws ClassNotFoundException, SQLException {
-        System.out.println("axiataDb"+connectDb);
-        System.out.println("axiataDbuserName"+connectDbuserName);
-        System.out.println("axiataDbpassword"+connectDbpassword);
-        return getMySQLConnection(connectDb, connectDbuserName, connectDbpassword);
+        System.out.println("axiataDb" + connectDb);
+        System.out.println("axiataDbuserName" + connectDbuserName);
+        System.out.println("axiataDbpassword" + connectDbpassword);
+        return getMySQLConnection(environment, connectDb, connectDbuserName, connectDbpassword);
     }
 
-    public static Connection getConnectionToRegDb()
+    public static Connection getConnectionToRegDb(String environment)
             throws ClassNotFoundException, SQLException {
-        return getMySQLConnection(regDb, regDbuserName, regDbpassword);
+        return getMySQLConnection(environment, regDb, regDbuserName, regDbpassword);
     }
 
-    public static Connection getConnectionToStatDb()
+    public static Connection getConnectionToStatDb(String environment)
             throws ClassNotFoundException, SQLException {
-        return getMySQLConnection(statDb, statDbuserName, statDbpassword);
+        return getMySQLConnection(environment, statDb, statDbuserName, statDbpassword);
     }
 
-    public static Connection getConnectionToUserDb()
+    public static Connection getConnectionToUserDb(String environment)
             throws ClassNotFoundException, SQLException {
-        return getMySQLConnection(userDb, userDbuserName, userDbpassword);
+        return getMySQLConnection(environment, userDb, userDbuserName, userDbpassword);
     }
 
-    public static Connection getMySQLConnection(String dbName, String userName, String password
+    public static Connection getMySQLConnection(String environment, String dbName, String userName, String password
     ) throws SQLException, ClassNotFoundException {
+
+        String hostName, port;
+
+        if (environment.endsWith("preprod")) {
+            hostName = hostNamePreProd;
+            port = portPreProd;
+        } else {
+            hostName = hostNameProd;
+            port = portProd;
+        }
 
         Class.forName("com.mysql.jdbc.Driver");
 
