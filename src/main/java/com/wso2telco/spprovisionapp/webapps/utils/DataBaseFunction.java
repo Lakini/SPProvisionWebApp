@@ -36,14 +36,14 @@ public class DataBaseFunction {
         String message;
 
         try {
-            String SQL = "{call populate_am_db (?,?)}";
+            String SQL = "{call populate_am_database_procedure (?,?)}";
             callablestatement = conn.prepareCall(SQL);
             callablestatement.setString(1, appName);
             callablestatement.registerOutParameter(2, java.sql.Types.INTEGER);
             callablestatement.execute();
 
             appId = callablestatement.getInt(2);
-            System.out.println("creat appID:" + appId);
+            System.out.println("create appID:" + appId);
             message = "Success";
 
         } catch (SQLException e) {
@@ -61,7 +61,7 @@ public class DataBaseFunction {
         String message;
 
         try {
-            String SQL = "{call populate_axiata_db (?)}";
+            String SQL = "{call populate_axiata_database_procedure (?)}";
             callablestatement = conn.prepareCall(SQL);
             System.out.println("AppId" + appId);
             callablestatement.setInt(1, appId);
@@ -83,7 +83,7 @@ public class DataBaseFunction {
         String message;
 
         try {
-            String SQL = "{call update_subscription (?)}";
+            String SQL = "{call update_subscription_procedure (?)}";
             callablestatement = conn.prepareCall(SQL);
             System.out.println("AppId" + appId);
             callablestatement.setInt(1, appId);
@@ -105,7 +105,7 @@ public class DataBaseFunction {
         String message;
 
         try {
-            String SQL = "{call populate_subscription_validator (?)}";
+            String SQL = "{call populate_subscription_validator_procedure (?)}";
             callablestatement = conn.prepareCall(SQL);
             System.out.println("AppId" + appId);
             callablestatement.setInt(1, appId);
@@ -127,7 +127,7 @@ public class DataBaseFunction {
         String message;
 
         try {
-            String SQL = "{call populate_sp_config(?)}";
+            String SQL = "{call populate_sp_config_procedure(?)}";
             callablestatement = conn.prepareCall(SQL);
             callablestatement.setString(1, consumerKey);
             callablestatement.execute();

@@ -25,9 +25,7 @@ import java.util.Properties;
 public class DataBaseAccessUtil {
 
     private static String hostNamePreProd;
-    private static String portPreProd;
     private static String hostNameProd;
-    private static String portProd;
     private static String apimgtDb;
     private static String apimgtDbuserName;
     private static String apimgtDbpassword;
@@ -37,23 +35,12 @@ public class DataBaseAccessUtil {
     private static String connectDb;
     private static String connectDbuserName;
     private static String connectDbpassword;
-    private static String regDb;
-    private static String regDbuserName;
-    private static String regDbpassword;
-    private static String statDb;
-    private static String statDbuserName;
-    private static String statDbpassword;
-    private static String userDb;
-    private static String userDbuserName;
-    private static String userDbpassword;
 
     public DataBaseAccessUtil() throws IOException {
         PropertyFileHandler propertyFIleHandler = new PropertyFileHandler();
         Properties properties = propertyFIleHandler.popertiesFromPropertyFile();
         hostNamePreProd = properties.getProperty("host_db_preprod");
-        portPreProd = properties.getProperty("port_db_preprod");
         hostNameProd = properties.getProperty("host_db_prod");
-        portProd = properties.getProperty("port_db_prod");
         apimgtDb = properties.getProperty("am_db_name");
         apimgtDbuserName = properties.getProperty("am_db_user");
         apimgtDbpassword = properties.getProperty("am_db_password");
@@ -63,15 +50,6 @@ public class DataBaseAccessUtil {
         connectDb = properties.getProperty("connect_db_name");
         connectDbuserName = properties.getProperty("connect_db_user");
         connectDbpassword = properties.getProperty("connect_db_password");
-        regDb = properties.getProperty("reg_db_name");
-        regDbuserName = properties.getProperty("reg_db_user");
-        regDbpassword = properties.getProperty("reg_db_password ");
-        statDb = properties.getProperty("stat_db_name");
-        statDbuserName = properties.getProperty("stat_db_user");
-        statDbpassword = properties.getProperty("stat_db_password");
-        userDb = properties.getProperty("user_db_name");
-        userDbuserName = properties.getProperty("user_db_user");
-        userDbpassword = properties.getProperty("user_db_password");
     }
 
     public static Connection getConnectionToApimgtDb(String environment)
@@ -92,37 +70,20 @@ public class DataBaseAccessUtil {
         return getMySQLConnection(environment, connectDb, connectDbuserName, connectDbpassword);
     }
 
-    public static Connection getConnectionToRegDb(String environment)
-            throws ClassNotFoundException, SQLException {
-        return getMySQLConnection(environment, regDb, regDbuserName, regDbpassword);
-    }
-
-    public static Connection getConnectionToStatDb(String environment)
-            throws ClassNotFoundException, SQLException {
-        return getMySQLConnection(environment, statDb, statDbuserName, statDbpassword);
-    }
-
-    public static Connection getConnectionToUserDb(String environment)
-            throws ClassNotFoundException, SQLException {
-        return getMySQLConnection(environment, userDb, userDbuserName, userDbpassword);
-    }
-
     public static Connection getMySQLConnection(String environment, String dbName, String userName, String password
     ) throws SQLException, ClassNotFoundException {
 
-        String hostName, port;
+        String hostName;
 
         if (environment.endsWith("preprod")) {
             hostName = hostNamePreProd;
-            port = portPreProd;
         } else {
             hostName = hostNameProd;
-            port = portProd;
         }
 
         Class.forName("com.mysql.jdbc.Driver");
 
-        String connectionURL = "jdbc:mysql://" + hostName + ":" + port + "/" + dbName;
+        String connectionURL = "jdbc:mysql://" + hostName + "/" + dbName+"?autoReconnect=true&useSSL=false";
 
         Connection conn = DriverManager.getConnection(connectionURL, userName,
                 password);

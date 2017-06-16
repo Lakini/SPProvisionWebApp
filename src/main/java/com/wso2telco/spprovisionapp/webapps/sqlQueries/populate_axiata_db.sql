@@ -1,8 +1,8 @@
 delimiter //
 
 
-drop procedure if exists populate_axiata_db;
-create procedure populate_axiata_db (IN app_id INT)
+drop procedure if exists populate_axiata_database_procedure;
+create procedure populate_axiata_database_procedure (IN app_id INT)
     BEGIN
         insert into operatorapps (applicationid, operatorid, isactive) values (app_id, 1, 1);
         insert into operatorapps (applicationid, operatorid, isactive) values (app_id, 2, 1);

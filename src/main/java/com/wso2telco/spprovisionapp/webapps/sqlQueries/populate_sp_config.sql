@@ -1,7 +1,7 @@
 delimiter //
 
-drop procedure if exists populate_sp_config;
-create procedure populate_sp_config (IN consumer_key varchar(255))
+drop procedure if exists populate_sp_config_procedure;
+create procedure populate_sp_config_procedure (IN consumer_key varchar(255))
     BEGIN
         insert into sp_configuration (client_id, config_key, config_value) values (consumer_key,'scope','openid');
         insert into sp_configuration (client_id, config_key, config_value) values (consumer_key,'scope','mnv');

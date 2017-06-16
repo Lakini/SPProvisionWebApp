@@ -1,7 +1,7 @@
 delimiter //
 
-drop procedure if exists populate_am_db;
-create procedure populate_am_db (IN app_name varchar(255),OUT app_id int)
+drop procedure if exists populate_am_database_procedure;
+create procedure populate_am_database_procedure (IN app_name varchar(255),OUT app_id int)
     BEGIN
         select AM_APPLICATION.APPLICATION_ID from AM_APPLICATION where AM_APPLICATION.NAME= app_name into app_id;
 
